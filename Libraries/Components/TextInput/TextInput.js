@@ -1176,7 +1176,6 @@ const ExportedForwardRef: React.AbstractComponent<
 ExportedForwardRef.defaultProps = {
   allowFontScaling: true,
   rejectResponderTermination: true,
-  underlineColorAndroid: 'transparent',
 };
 
 // TODO: Deprecate this
