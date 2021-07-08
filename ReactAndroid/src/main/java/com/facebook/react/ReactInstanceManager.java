@@ -151,7 +151,7 @@ public class ReactInstanceManager {
   /* accessed from any thread */
   private final JavaScriptExecutorFactory mJavaScriptExecutorFactory;
 
-  private final @Nullable JSBundleLoader mBundleLoader;
+  private @Nullable JSBundleLoader mBundleLoader;
   private final @Nullable String mJSMainModulePath; /* path to JS bundle root on Metro */
   private final List<ReactPackage> mPackages;
   private final DevSupportManager mDevSupportManager;
@@ -347,6 +347,10 @@ public class ReactInstanceManager {
 
   public List<ReactPackage> getPackages() {
     return new ArrayList<>(mPackages);
+  }
+
+  public void pss_setBundleLoader(JSBundleLoader bundleLoader) {
+    mBundleLoader = bundleLoader;
   }
 
   static void initializeSoLoaderIfNecessary(Context applicationContext) {
@@ -980,6 +984,17 @@ public class ReactInstanceManager {
       runCreateReactContextOnNewThread(initParams);
     } else {
       mPendingReactContextInitParams = initParams;
+    }
+  }
+
+  public void pss_teardownCurrentContext() {
+    synchronized (mAttachedReactRoots) {
+      synchronized (mReactContextLock) {
+        if (mCurrentReactContext != null) {
+          tearDownReactContext(mCurrentReactContext);
+          mCurrentReactContext = null;
+        }
+      }
     }
   }
 

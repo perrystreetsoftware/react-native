@@ -30,4 +30,7 @@ public interface NotThreadSafeBridgeIdleDebugListener {
 
   /** Called when the bridge is destroyed */
   void onBridgeDestroyed();
+
+  /** Called when the bridge queues are destroyed */
+  void pss_onBridgeQueuesDestroyed();
 }

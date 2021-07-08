@@ -401,6 +401,13 @@ public class CatalystInstanceImpl implements CatalystInstance {
                                                 "CatalystInstanceImpl.destroy() end");
                                             ReactMarker.logMarker(
                                                 ReactMarkerConstants.DESTROY_CATALYST_INSTANCE_END);
+
+                                            // PSS added -- notify when our bridges are fully destroyed
+                                            if (!mBridgeIdleListeners.isEmpty()) {
+                                              for (NotThreadSafeBridgeIdleDebugListener listener : mBridgeIdleListeners) {
+                                                listener.pss_onBridgeQueuesDestroyed();
+                                              }
+                                            }
                                           }
                                         });
                                   }

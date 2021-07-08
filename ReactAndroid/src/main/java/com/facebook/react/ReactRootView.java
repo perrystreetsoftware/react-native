@@ -383,8 +383,12 @@ public class ReactRootView extends FrameLayout implements RootView, ReactRoot {
       mAppProperties = initialProperties;
       mInitialUITemplate = initialUITemplate;
 
-      mReactInstanceManager.createReactContextInBackground();
-
+      // PSS added -- you can now call this method multiple times
+      if (mReactInstanceManager.hasStartedCreatingInitialContext()) {
+        mReactInstanceManager.recreateReactContextInBackground();
+      } else {
+        mReactInstanceManager.createReactContextInBackground();
+      }
     } finally {
       Systrace.endSection(TRACE_TAG_REACT_JAVA_BRIDGE);
     }

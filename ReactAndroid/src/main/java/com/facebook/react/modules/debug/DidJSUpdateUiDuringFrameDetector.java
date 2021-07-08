@@ -47,6 +47,11 @@ public class DidJSUpdateUiDuringFrameDetector
   }
 
   @Override
+  public synchronized void pss_onBridgeQueuesDestroyed() {
+    // do nothing
+  }
+
+  @Override
   public synchronized void onViewHierarchyUpdateEnqueued() {
     mViewHierarchyUpdateEnqueuedEvents.add(System.nanoTime());
   }
